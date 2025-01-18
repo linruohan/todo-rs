@@ -2,9 +2,8 @@
 # see https://diesel.rs/guides/configuring-diesel-cli
 
 [print_schema]
-filter = { only_tables = ["todos"] }
 file = "src/schema.rs"
 custom_type_derives = ["diesel::query_builder::QueryId", "Clone"]
 
 [migrations_directory]
-dir = "/Users/huseyinbabal/null/todo-rs/migrations"
+dir = "D:\\codehub\\todo-rs\\migrations"

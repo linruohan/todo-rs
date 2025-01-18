@@ -2,7 +2,7 @@
 
 diesel::table! {
     todos (id) {
-        id -> Int4,
+        id -> Integer,
         title -> Text,
         content -> Text,
     }
