@@ -46,19 +46,17 @@ pub async fn get_todos(State(db): State<DbPool>) -> (StatusCode, Json<Vec<Todo>>
 pub async fn get_todo(
     Path(todo_id): Path<i32>,
     State(db): State<DbPool>,
-) -> (StatusCode, Json<Todo>) {
+) -> Result<String, (StatusCode, &'static str)> {
     let mut conn = db
         .get()
         .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)
         .unwrap();
 
-    let result = todos::table
+    todos::table
         .filter(id.eq(todo_id))
         .first::<Todo>(&mut conn)
-        .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)
-        .unwrap();
-
-    (StatusCode::OK, Json(result))
+        .map_err(|_| (StatusCode::INTERNAL_SERVER_ERROR, "get todo failed"))?;
+    Ok("get todo success".to_owned())
 }
 
 pub async fn update_todo(
